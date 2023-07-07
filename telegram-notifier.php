@@ -177,7 +177,7 @@ class TelegramNotifier
         add_action('admin_menu', [$this, 'add_option_page']);
         add_action('admin_enqueue_scripts', [$this, 'plugin_assets']);
         add_action('admin_notices', [$this, 'admin_notices']);
-        add_action('gform_notification', [$this, 'send_notifications'], 10, 3);
+        add_action('gform_confirmation', [$this, 'send_notifications'], 10, 3);
 
         $this->set_actions_handlers();
     }
@@ -371,7 +371,7 @@ class TelegramNotifier
         <?php
     }
 
-    public function send_notifications($notification, $form, $entry)
+    public function send_notifications($confirmation, $form, $entry)
     {
         try {
             global $wpdb;
@@ -380,22 +380,22 @@ class TelegramNotifier
                 return;
             }
 
-
             $url = $this->get_telegram_api_url('sendMessage');
             $chats = $wpdb->get_col("SELECT chat_id FROM " . TELEGRAM_NOTIFIER_TABLE_NAME . " WHERE in_mailing_list = 1");
             $nl = urlencode("\n");
 
-            foreach ($chats as $chat) {
-                $raw = GFCommon::replace_variables($notification['message'], $form, $entry);
-                $with_nl = strip_tags(preg_replace('/\<\/font\>/', $nl, $raw));
-                $text = trim(preg_replace("/$nl\s/", $nl, preg_replace('/\s+/', ' ', preg_replace('/\&nbsp\;/', ' ', $with_nl))));
-                $text .= $nl . date("d.m.Y, g:i");
-                file_get_contents($url . "?chat_id=$chat&text=$text&parse_mode=html");
+            foreach ($form['notifications'] as $notification) {
+                foreach ($chats as $chat) {
+                    $raw = GFCommon::replace_variables($notification['message'], $form, $entry);
+                    $with_nl = strip_tags(preg_replace('/\<\/font\>/', $nl, $raw));
+                    $text = trim(preg_replace("/$nl\s/", $nl, preg_replace('/\s+/', ' ', preg_replace('/\&nbsp\;/', ' ', $with_nl))));
+                    $text .= $nl . date("d.m.Y, g:i");
+                    file_get_contents($url . "?chat_id=$chat&text=$text&parse_mode=html");
+                }
             }
-        } catch (Exception $exception) {
-            var_dump($exception);
-        } finally {
-            return $notification;
+        } catch (Exception $exception) {}
+        finally {
+            return $confirmation;
         }
     }
 
