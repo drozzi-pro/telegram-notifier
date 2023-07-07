@@ -1,0 +1,54 @@
+.form-table tr:has(.empty) > * {
+    padding: 0 !important;
+}
+
+.wp-list-table .submit,
+.telegram-notifier_update-form .submit {
+    padding: 8px 0;
+    margin: 0;
+}
+
+.telegram-notifier_gf-list_setting {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5rem;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+}
+
+.telegram-notifier_gf-list_setting .telegram-notifier_gf-list_items {
+    display: flex;
+    align-items: center;
+    column-gap: .5rem;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.telegram-notifier_gf-list_setting .telegram-notifier_gf-list_add-form {
+    display: flex;
+    align-items: center;
+    column-gap: .5rem;
+}
+
+.telegram-notifier_gf-list_setting .telegram-notifier_gf-list_remove-form {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid #8c8f94;
+}
+
+.telegram-notifier_gf-list_setting .telegram-notifier_gf-list_remove-form span {
+    display: block;
+    padding: .5rem;
+}
+
+.telegram-notifier_gf-list_setting .telegram-notifier_gf-list_remove-form .submit input {
+    border-radius: 0 !important;
+    height: 100%;
+}
+
+.telegram-notifier_gf-list_setting .telegram-notifier_gf-list_add-form .submit,
+.telegram-notifier_gf-list_setting .telegram-notifier_gf-list_remove-form .submit {
+    width: max-content;
+    padding: 0 !important;
+    margin: 0 !important;
+}

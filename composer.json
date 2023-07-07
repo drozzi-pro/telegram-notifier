@@ -1,0 +1,16 @@
+{
+  "name": "drozzi-pro/telegram-notifier",
+  "type": "wordpress-plugin",
+  "description": "Wordpress plugin for sending notifications about GravityForms submitting to telegram",
+  "homepage": "https://github.com/drozzi-pro/telegram-notifier",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "Drozzi Pro",
+      "homepage": "https://drozzi.pro"
+    }
+  ],
+  "require": {
+    "php": ">=7.4"
+  }
+}
