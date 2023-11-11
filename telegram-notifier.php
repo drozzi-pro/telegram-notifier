@@ -461,7 +461,7 @@ class TelegramNotifier
                     $wpdb->insert(TELEGRAM_NOTIFIER_TABLE_NAME, [
                         'chat_id' => $chat->id,
                         'full_name' => $full_name,
-                        'username' => $chat->username,
+                        'username' => $chat->username ?? '-',
                     ], ['%d', '%s', '%s']);
                 }
             }
