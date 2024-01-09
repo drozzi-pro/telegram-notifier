@@ -391,6 +391,12 @@ class TelegramNotifier
                     $text = trim(preg_replace("/$nl\s/", $nl, preg_replace('/\s+/', ' ', preg_replace('/\&nbsp\;/', ' ', $with_nl))));
                     $text .= $nl . date("d.m.Y, g:i");
                     $text = $form['title'] . $nl . $nl . $text;
+
+                    $words = explode($nl, $text);
+                    $words = array_map(fn($word) => urlencode($word), $words);
+
+                    $text = implode($nl, $words);
+
                     file_get_contents($url . "?chat_id=$chat&text=$text&parse_mode=html");
                 }
             }
